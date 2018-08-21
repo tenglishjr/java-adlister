@@ -9,13 +9,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-    try {
         if (request.getParameter("username").equals("admin") && request.getParameter("password").equals("password")) {
             response.sendRedirect("profile.jsp");
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
 %>
 
 
