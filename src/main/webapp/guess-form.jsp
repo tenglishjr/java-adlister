@@ -27,14 +27,17 @@
     <h1>Guess Form</h1>
 
     <c:choose>
-        <c:when test="${guess != random}">
-            <div class="warning">Incorrect guess. Please try again.</div>
+        <c:when test="${guess < random}">
+            <div class="warning">Guess is too low. Please try again.</div>
+        </c:when>
+        <c:when test="${guess > random}">
+            <div class="warning">Guess is too high. Please try again.</div>
         </c:when>
     </c:choose>
 
     <form action="/guess" method="POST">
         <label for="number">Enter a number between 1 and 100: </label>
-        <input type="text" placeholder="e.g. 42" id="number" name="guess">
+        <input type="number" min="1" max="100" placeholder="e.g. 42" id="number" name="guess">
         <button type="submit" value="submit">Submit</button>
     </form>
 
