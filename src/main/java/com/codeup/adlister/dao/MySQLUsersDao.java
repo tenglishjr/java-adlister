@@ -47,13 +47,13 @@ public class MySQLUsersDao implements Users {
     public Long insert(User user) {
         try {
             String query = createInsertQuery();
-            PreparedStatement stmt = connection.prepareStatement(query);
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
-            Long output = (long) stmt.executeUpdate();
-            System.out.println(output);
-            return output;
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            return rs.getLong(1);
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new user.", e);
         }
