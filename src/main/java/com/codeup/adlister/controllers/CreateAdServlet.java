@@ -14,8 +14,14 @@ import java.io.IOException;
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
-            .forward(request, response);
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("user") != null) {
+            request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
+                    .forward(request, response);
+        } else {
+            response.sendRedirect("/login");
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
